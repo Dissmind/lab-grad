@@ -5,9 +5,15 @@ CONFIG -= qt
 
 SOURCES += \
         animal.cpp \
+        bird.cpp \
+        fish.cpp \
         main.cpp \
+        mammals.cpp \
         struct.cpp
 
 HEADERS += \
     animal.h \
+    bird.h \
+    fish.h \
+    mammals.h \
     struct.h

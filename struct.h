@@ -16,14 +16,14 @@ public:
     void deleteElement();
 
 private:
-    std::vector<Animal> vector;
+    std::vector<Animal*> vector;
 
     // Вывод списка всех елементов
     int getListAllElements();
     void display(int index);
 
-    Animal writeNewElement();
-    void saveElement(Animal el);
+    void saveNewElement();
+    void saveElement(Animal * el);
 };
 
 #endif // STRUCT_H

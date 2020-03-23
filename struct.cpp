@@ -1,9 +1,9 @@
+#include "bird.h"
+#include "fish.h"
+#include "mammals.h"
 #include "struct.h"
 
-Struct::Struct()
-{
-
-}
+Struct::Struct() {}
 
 
     // ********
@@ -22,9 +22,15 @@ void Struct::displayElement() {
     int index;
     std::wcout << L" >> ";
     std::wcin >> index;
+    // TODO: проверка
 
     std::wcout << std::endl;
-    this->display(index);
+
+//    this->display(index);
+
+//    Animal &el = this->vector.at(index - 1);
+
+    this->vector[index - 1]->displayInfo();
 }
 
 
@@ -32,7 +38,8 @@ void Struct::displayElement() {
     Создание новой записи
 */
 void Struct::createNewElement() {
-    this->saveElement(this->writeNewElement());
+//    this->saveElement(this->writeNewElement());
+    this->saveNewElement();
 }
 
 
@@ -79,8 +86,8 @@ int Struct::getListAllElements() {
 
     int i = 1;
 
-    for (Animal el : this->vector) {
-        std::wcout << i << L". " << el.getName() << std::endl;
+    for (Animal *el : this->vector) {
+        std::wcout << i << L". " << el->getName() << std::endl;
 
         i++;
     }
@@ -91,67 +98,65 @@ int Struct::getListAllElements() {
 /*
     Вывод записи на экран по индексу
 */
-void Struct::display(int index) {
-    Animal el = this->vector.at(index - 1);
+//void Struct::display(int index) {
+//    Animal el = this->vector.at(index - 1);
 
-    std::wcout << L"Имя: " << el.getName() << std::endl;
-    if (el.getSex()) std::wcout << L"Пол: " << L"Мужской" << std::endl;
-        else std::wcout << L"Пол: " << L"Женский"  << std::endl;
-    std::wcout << L"Mamls: " << el.getMamls() << std::endl;
-    std::wcout << L"Amphibians: " << el.getAmphibians() << std::endl;
-}
+//    std::wcout << L"Имя: " << el.getName() << std::endl;
+//    if (el.getSex()) std::wcout << L"Пол: " << L"Мужской" << std::endl;
+//        else std::wcout << L"Пол: " << L"Женский"  << std::endl;
+//    std::wcout << L"Mamls: " << el.getMamls() << std::endl;
+//    std::wcout << L"Amphibians: " << el.getAmphibians() << std::endl;
+//}
 
 
 /*
     Создание объекта (записи)
 */
-Animal Struct::writeNewElement() {
-    Animal el;
+void Struct::saveNewElement() {
+    Animal * el;
 
-    std::wcout << L"Name: " << L"\n";
-    std::wstring name;
-    // TODO: проверить
-    std::wcin >> name;
-    el.setName(name);
+    std::wcout << L"1. Рыба" << std::endl;
+    std::wcout << L"2. Птица" << std::endl;
+    std::wcout << L"3. Млекопитающие" << std::endl;
 
-    while (true) {
-        std::wcout << L"Пол: " << L"\n";
+    int enter;
 
-        std::wstring value;
-        std::wcin.clear();
-
-        getline(std::wcin, value);
-
-        if ( value == L"м" ||
-             value == L"М" ||
-             value == L"ж" ||
-             value == L"Ж" ) {
-            el.setSex(value == L"м" || value == L"М");
-
-            break;
-        }
-
-        std::wcout << L"Не верный ввод. Попроуйте снова.\n";
+    while ( !(std::cin >> enter) ||
+             (std::cin.peek() != '\n') ||
+             (enter < 1 ) ||
+             (enter > 3)) {
+        std::cin.clear();
+        while (std::cin.get() != '\n');
+        std::wcout << L"Ошибка. Повторите ввод.\n";
+        std::wcout << L" >> ";
     }
 
-    std::wcout << L"mamals: " << L"\n";
-    std::wstring value;
-    std::wcin >> value;
-    el.setMamls(value);
+    switch (enter) {
+        case 1:
+        el = new Fish();
+        break;
 
-    std::wcout << L"amphibians: " << L"\n";
-    std::wcin >> value;
-    el.setAmphibians(value);
+        case 2:
+        el = new Bird();
+        break;
 
-    return el;
+        case 3:
+        el = new Mammals();
+        break;
+    }
+
+
+//    this->vector.push_back(el);
+    this->vector.insert(this->vector.end(), el);
+//    return Animal();
 }
 
 /*
     Сохранение записи
 */
-void Struct::saveElement(Animal el) {
-    this->vector.push_back(el);
-}
+//void Struct::saveElement(Animal *el) {
+//    this->vector.push_back(el);
+//}
 
 
 

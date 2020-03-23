@@ -6,27 +6,47 @@
 
 
 class Animal {
-private:
-    std::wstring name;
-    bool sex;
-    std::wstring mamals;
-    std::wstring amphibians;
-
 
 public:
     Animal();
+    Animal(std::wstring name, int price);
 
-    // Set
-    void setName(std::wstring value) {this->name = value;}
-    void setSex(bool value) {this->sex = value;}
-    void setMamls(std::wstring value) {this->mamals = value;}
-    void setAmphibians(std::wstring value) {this->amphibians = value;}
+    virtual void displayInfo();
+
+    virtual ~Animal(){}
 
     // Get
-    std::wstring getName() {return this->name;}
-    bool getSex() {return this->sex;}
-    std::wstring getMamls() {return this->mamals;}
-    std::wstring getAmphibians() {return this->amphibians;}
+    std::wstring getName() {
+        return this->name;
+    }
+
+    int getPrice() {
+        return this->price;
+    }
+
+
+    // Set
+    void setName(std::wstring value) {
+        this->name = value;
+    }
+
+    void setPrice(int value) {
+        this->price = value;
+    }
+
+private:
+
+    std::wstring name;
+    int price;
+
+    int dollarRate = 70;
+
+
+
+ protected:
+
+    double getDollarPrice() {return this->price * this->dollarRate;}
+
 };
 
 #endif // ANIMAL_H

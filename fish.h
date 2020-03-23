@@ -1,0 +1,40 @@
+#ifndef FISH_H
+#define FISH_H
+
+#include "animal.h"
+
+
+
+class Fish : public Animal
+{
+public:
+    Fish();
+
+
+    virtual void displayInfo();
+
+    // Get
+    bool getEdible() {
+        return this->edible;
+    }
+
+    bool getRare() {
+        return this->rare;
+    }
+
+    // Set
+    void setEdible(bool value) {
+        this->edible = value;
+    }
+
+    void setRare(bool value) {
+        this->rare = value;
+    }
+
+private:
+
+    bool edible;
+    bool rare;
+};
+
+#endif // FISH_H
